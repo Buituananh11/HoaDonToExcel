@@ -7,55 +7,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
-
   :root {
-    --bg: #0f1117;
-    --surface: #1a1d27;
-    --border: #2a2d3a;
-    --accent: #00e5a0;
-    --text: #e8eaf0;
-    --muted: #6b7080;
-    --danger: #ff4757;
+    --bg: #0f1117; --surface: #1a1d27; --border: #2a2d3a;
+    --accent: #00e5a0; --text: #e8eaf0; --muted: #6b7080; --danger: #ff4757;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    background: var(--bg);
-    color: var(--text);
+    background: var(--bg); color: var(--text);
     font-family: 'IBM Plex Sans', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 16px;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; padding: 40px 16px;
   }
-
   header { text-align: center; margin-bottom: 36px; }
-
   header h1 {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: clamp(1.4rem, 4vw, 2rem);
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: -0.5px;
+    font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700;
+    color: var(--accent); letter-spacing: -0.5px;
   }
-
   header h1 span { color: var(--text); }
   header p { margin-top: 8px; color: var(--muted); font-size: 0.8rem; font-family: 'IBM Plex Mono', monospace; }
+  .container { width: 100%; max-width: 960px; display: flex; flex-direction: column; gap: 20px; }
 
-  .container { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 20px; }
-
-  /* Dropzone */
   .dropzone {
-    border: 2px dashed var(--border);
-    border-radius: 12px;
-    padding: 48px 24px;
-    text-align: center;
-    cursor: pointer;
-    background: var(--surface);
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
+    border: 2px dashed var(--border); border-radius: 12px;
+    padding: 48px 24px; text-align: center; cursor: pointer;
+    background: var(--surface); transition: border-color 0.2s, background 0.2s; position: relative;
   }
   .dropzone:hover, .dropzone.drag { border-color: var(--accent); background: #1e2230; }
   .dropzone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
@@ -63,85 +39,75 @@
   .dropzone p { color: var(--muted); font-size: 0.9rem; }
   .dropzone p strong { color: var(--accent); }
 
-  /* Preview */
   #preview-wrap { display: none; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
   #preview-img { width: 100%; max-height: 300px; object-fit: contain; background: #111; display: block; }
 
-  /* Buttons */
   .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 24px; border-radius: 8px; border: none;
-    cursor: pointer; font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.9rem; font-weight: 700; transition: opacity 0.2s, transform 0.1s;
+    padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; font-weight: 700;
+    transition: opacity 0.2s, transform 0.1s;
   }
   .btn:active { transform: scale(0.97); }
   .btn-primary { background: var(--accent); color: #000; }
   .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
   .btn-excel { background: #1d6f42; color: #fff; }
 
-  /* Status */
   #status { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; min-height: 20px; }
   #status.loading { color: var(--accent); }
   #status.error   { color: var(--danger); }
   #status.done    { color: var(--accent); }
 
-  /* Table card */
   .table-card { display: none; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
-
   .table-topbar {
     background: var(--surface); padding: 14px 20px;
     display: flex; align-items: center; justify-content: space-between;
     border-bottom: 1px solid var(--border);
   }
   .table-topbar h2 { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
-
-  .meta-bar {
-    padding: 10px 20px; background: #12151f;
+  .meta-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px; padding: 16px 20px; background: #12151f;
     border-bottom: 1px solid var(--border);
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--muted);
-    display: flex; gap: 24px; flex-wrap: wrap;
   }
-
+  .meta-item label { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .meta-item input {
+    background: #1a1d27; border: 1px solid var(--border); color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem;
+    padding: 6px 10px; border-radius: 6px; width: 100%; outline: none;
+    transition: border-color 0.15s;
+  }
+  .meta-item input:focus { border-color: var(--accent); }
   .tag {
     display: inline-block; padding: 2px 8px; border-radius: 4px;
     font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
     background: #1a2a1a; color: var(--accent); border: 1px solid #2a4a2a; margin-left: 8px;
   }
-
   table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-
   thead th {
-    background: #12151f; padding: 11px 14px;
+    background: #12151f; padding: 11px 12px;
     text-align: left; font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem; color: var(--muted); letter-spacing: 1px;
-    text-transform: uppercase; border-bottom: 1px solid var(--border);
-    white-space: nowrap;
+    font-size: 0.7rem; color: var(--muted); letter-spacing: 1px;
+    text-transform: uppercase; border-bottom: 1px solid var(--border); white-space: nowrap;
   }
   thead th.r { text-align: right; }
-
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
   tbody tr:hover { background: #1e2230; }
-  tbody td { padding: 10px 14px; vertical-align: middle; }
-
+  tbody td { padding: 9px 12px; vertical-align: middle; }
   td input {
     background: transparent; border: none; color: var(--text);
-    font-family: inherit; font-size: inherit; width: 100%; outline: none;
-    padding: 2px 4px; border-radius: 4px; transition: background 0.15s;
+    font-family: inherit; font-size: inherit; width: 100%;
+    outline: none; padding: 2px 4px; border-radius: 4px; transition: background 0.15s;
   }
   td input:focus { background: #2a2d3a; }
-
   .total-row { border-top: 2px solid var(--accent) !important; background: #12151f; }
-  .total-row td { font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: var(--accent); padding: 13px 14px; }
-
+  .total-row td { font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: var(--accent); padding: 13px 12px; }
   .del-btn {
     background: none; border: none; color: var(--muted);
-    cursor: pointer; font-size: 1rem; padding: 2px 6px; border-radius: 4px;
-    transition: color 0.15s;
+    cursor: pointer; font-size: 1rem; padding: 2px 6px; border-radius: 4px; transition: color 0.15s;
   }
   .del-btn:hover { color: var(--danger); }
-
   .add-row-btn {
     width: 100%; padding: 10px 20px; background: var(--surface); border: none;
     border-top: 1px solid var(--border); color: var(--muted); cursor: pointer;
@@ -149,15 +115,12 @@
     transition: color 0.2s, background 0.2s;
   }
   .add-row-btn:hover { color: var(--accent); background: #1e2230; }
-
   .spinner {
     display: inline-block; width: 13px; height: 13px;
     border: 2px solid transparent; border-top-color: currentColor;
     border-radius: 50%; animation: spin 0.7s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Mobile */
   @media (max-width: 600px) {
     .actions { flex-direction: column; }
     .btn { justify-content: center; }
@@ -165,23 +128,18 @@
 </style>
 </head>
 <body>
-
 <header>
   <h1><span>HOÁ ĐƠN</span> → EXCEL</h1>
   <p>// Upload ảnh · AI đọc · Xuất Excel</p>
 </header>
-
 <div class="container">
-
   <div class="dropzone" id="dropzone">
     <input type="file" id="fileInput" accept="image/*">
     <div class="dropzone-icon">📄</div>
     <p><strong>Chọn ảnh hoặc kéo thả vào đây</strong></p>
     <p>Hỗ trợ JPG, PNG, HEIC</p>
   </div>
-
   <div id="preview-wrap"><img id="preview-img" src="" alt="preview"></div>
-
   <div class="actions">
     <button class="btn btn-primary" id="analyzeBtn" disabled onclick="analyze()">
       🔍 Đọc hóa đơn bằng AI
@@ -190,26 +148,26 @@
       📊 Xuất Excel
     </button>
   </div>
-
   <div id="status"></div>
-
   <div class="table-card" id="tableCard">
     <div class="table-topbar">
       <h2>Bảng hóa đơn <span class="tag" id="rowCount">0 dòng</span></h2>
       <span style="font-family:monospace;font-size:0.72rem;color:var(--muted)">Click ô để chỉnh sửa</span>
     </div>
-    <div id="metaBar" class="meta-bar" style="display:none"></div>
+    <!-- Meta fields -->
+    <div class="meta-grid" id="metaGrid"></div>
+    <!-- Table -->
     <div style="overflow-x:auto">
       <table>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Tên sản phẩm</th>
-            <th>ĐVT</th>
-            <th class="r">SL</th>
-            <th class="r">Đơn giá (đ)</th>
-            <th class="r">Thành tiền (đ)</th>
-            <th></th>
+            <th style="width:40px">STT</th>
+            <th>Tên mặt hàng</th>
+            <th style="width:70px">ĐVT</th>
+            <th class="r" style="width:80px">SL</th>
+            <th class="r" style="width:130px">Đơn giá (đ)</th>
+            <th class="r" style="width:140px">Thành tiền (đ)</th>
+            <th style="width:36px"></th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -218,18 +176,15 @@
     </div>
     <button class="add-row-btn" onclick="addRow()">＋ Thêm dòng</button>
   </div>
-
 </div>
 
 <script>
 let imgB64 = null;
-let metaData = {};
+let invoiceData = {};
 
-// File handling
 document.getElementById('fileInput').addEventListener('change', e => {
   if (e.target.files[0]) loadFile(e.target.files[0]);
 });
-
 const dz = document.getElementById('dropzone');
 dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
 dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
@@ -263,60 +218,68 @@ async function analyze() {
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Đang đọc...';
   setStatus('// Đang gửi ảnh đến AI...', 'loading');
-
   try {
     const res = await fetch('/api/analyze', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ imageBase64: imgB64 })
     });
-
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || 'Server error');
-    }
-
+    if (!res.ok) { const e = await res.json(); throw new Error(e.error || 'Server error'); }
     const parsed = await res.json();
-    metaData = { supplier: parsed.supplier, date: parsed.date, phone: parsed.phone };
+    invoiceData = parsed;
+    renderMeta(parsed);
     renderTable(parsed.items || []);
-    renderTotal();
-    setStatus(`// OK · ${(parsed.items || []).length} sản phẩm`, 'done');
+    setStatus(`// OK · ${(parsed.items||[]).length} sản phẩm`, 'done');
     document.getElementById('exportBtn').style.display = 'inline-flex';
-
   } catch (err) {
     setStatus('// Lỗi: ' + err.message, 'error');
   }
-
   btn.disabled = false;
   btn.innerHTML = '🔍 Đọc lại';
 }
 
+function renderMeta(d) {
+  const fields = [
+    { key: 'supplier',       label: '🏪 Cửa hàng' },
+    { key: 'address',        label: '📍 Địa chỉ' },
+    { key: 'phone',          label: '📞 ĐT cửa hàng' },
+    { key: 'customer',       label: '👤 Khách hàng' },
+    { key: 'customer_phone', label: '📱 ĐT khách' },
+    { key: 'date',           label: '📅 Ngày' },
+    { key: 'invoice_number', label: '🔢 Số HĐ' },
+  ];
+  const grid = document.getElementById('metaGrid');
+  grid.innerHTML = fields.map(f => `
+    <div class="meta-item">
+      <label>${f.label}</label>
+      <input id="meta_${f.key}" value="${escHtml(d[f.key]||'')}">
+    </div>`).join('');
+}
+
 function renderTable(items) {
-  const tbody = document.getElementById('tbody');
-  tbody.innerHTML = '';
+  document.getElementById('tbody').innerHTML = '';
   items.forEach((it, i) => appendRow(i + 1, it));
-  updateMeta();
   updateRowCount();
+  renderTotal();
   document.getElementById('tableCard').style.display = 'block';
 }
 
 function appendRow(idx, it = {}) {
   const tr = document.createElement('tr');
   tr.innerHTML = `
-    <td style="color:var(--muted);font-family:monospace;font-size:0.8rem">${idx}</td>
+    <td style="color:var(--muted);font-family:monospace;font-size:0.8rem;text-align:center">${idx}</td>
     <td><input value="${escHtml(it.name||'')}" oninput="recalc(this.closest('tr'))"></td>
-    <td><input value="${escHtml(it.unit||'cái')}" style="width:60px;text-align:center" oninput="recalc(this.closest('tr'))"></td>
+    <td><input value="${escHtml(it.unit||'cái')}" style="width:60px;text-align:center"></td>
     <td><input type="number" value="${it.quantity||1}" style="width:70px;text-align:right" oninput="recalc(this.closest('tr'))"></td>
-    <td><input type="number" value="${it.unit_price||0}" style="width:110px;text-align:right" oninput="recalc(this.closest('tr'))"></td>
-    <td style="text-align:right;font-family:monospace" class="total-cell">${fmt(it.total||0)}</td>
-    <td><button class="del-btn" onclick="deleteRow(this)">✕</button></td>
-  `;
+    <td><input type="number" value="${it.unit_price||0}" style="width:120px;text-align:right" oninput="recalc(this.closest('tr'))"></td>
+    <td style="text-align:right;font-family:monospace" class="tcell">${fmt(it.total||0)}</td>
+    <td><button class="del-btn" onclick="deleteRow(this)">✕</button></td>`;
   document.getElementById('tbody').appendChild(tr);
 }
 
 function addRow() {
-  const rows = document.querySelectorAll('#tbody tr');
-  appendRow(rows.length + 1);
+  const n = document.querySelectorAll('#tbody tr').length;
+  appendRow(n + 1);
   updateRowCount();
   renderTotal();
 }
@@ -329,27 +292,22 @@ function deleteRow(btn) {
 }
 
 function renumber() {
-  document.querySelectorAll('#tbody tr').forEach((tr, i) => {
-    tr.cells[0].textContent = i + 1;
-  });
+  document.querySelectorAll('#tbody tr').forEach((tr, i) => { tr.cells[0].textContent = i + 1; });
 }
 
 function recalc(tr) {
   const qty   = parseFloat(tr.cells[3].querySelector('input').value) || 0;
   const price = parseFloat(tr.cells[4].querySelector('input').value) || 0;
-  const total = qty * price;
-  tr.cells[5].textContent = fmt(total);
+  tr.cells[5].textContent = fmt(qty * price);
   renderTotal();
 }
 
 function renderTotal() {
-  const tfoot = document.getElementById('tfoot');
   let sum = 0;
   document.querySelectorAll('#tbody tr').forEach(tr => {
-    const txt = tr.cells[5].textContent.replace(/[^0-9]/g, '');
-    sum += parseInt(txt) || 0;
+    sum += unFmt(tr.cells[5].textContent);
   });
-  tfoot.innerHTML = `
+  document.getElementById('tfoot').innerHTML = `
     <tr class="total-row">
       <td colspan="5" style="text-align:right;font-size:0.8rem;letter-spacing:1px">TỔNG CỘNG</td>
       <td style="text-align:right;font-size:1rem">${fmt(sum)}</td>
@@ -357,56 +315,74 @@ function renderTotal() {
     </tr>`;
 }
 
-function updateMeta() {
-  const bar = document.getElementById('metaBar');
-  const parts = [];
-  if (metaData.supplier) parts.push('🏪 ' + metaData.supplier);
-  if (metaData.date)     parts.push('📅 ' + metaData.date);
-  if (metaData.phone)    parts.push('📞 ' + metaData.phone);
-  if (parts.length) {
-    bar.innerHTML = parts.map(p => `<span>${p}</span>`).join('');
-    bar.style.display = 'flex';
-  }
+function updateRowCount() {
+  document.getElementById('rowCount').textContent = document.querySelectorAll('#tbody tr').length + ' dòng';
 }
 
-function updateRowCount() {
-  const n = document.querySelectorAll('#tbody tr').length;
-  document.getElementById('rowCount').textContent = n + ' dòng';
+function getMeta(key) {
+  const el = document.getElementById('meta_' + key);
+  return el ? el.value : '';
 }
 
 function exportExcel() {
+  const wb = XLSX.utils.book_new();
+
+  // Sheet 1: Hóa đơn đầy đủ
   const rows = [];
   document.querySelectorAll('#tbody tr').forEach((tr, i) => {
     const inputs = tr.querySelectorAll('input');
     const qty   = parseFloat(inputs[2].value) || 0;
     const price = parseFloat(inputs[3].value) || 0;
-    const total = parseInt(tr.cells[5].textContent.replace(/[^0-9]/g, '')) || 0;
+    const total = unFmt(tr.cells[5].textContent);
     rows.push([i + 1, inputs[0].value, inputs[1].value, qty, price, total]);
   });
 
-  const totalTxt = document.querySelector('#tfoot .total-row td:nth-child(2)');
-  const grandTotal = parseInt((totalTxt?.textContent||'').replace(/[^0-9]/g, '')) || 0;
+  let grandTotal = 0;
+  rows.forEach(r => grandTotal += r[5]);
 
   const aoa = [
-    ['HÓA ĐƠN MUA HÀNG'], [],
-    ['Nhà cung cấp:', metaData.supplier || ''],
-    ['Ngày:', metaData.date || ''],
-    ['Khách hàng:', metaData.phone || ''],
+    [getMeta('supplier') || 'HÓA ĐƠN MUA HÀNG'],
+    ['Địa chỉ:', getMeta('address')],
+    ['Điện thoại:', getMeta('phone')],
     [],
-    ['STT', 'Tên sản phẩm', 'ĐVT', 'Số lượng', 'Đơn giá (đ)', 'Thành tiền (đ)'],
+    ['Khách hàng:', getMeta('customer'), '', 'ĐT khách:', getMeta('customer_phone')],
+    ['Ngày:', getMeta('date'), '', 'Số HĐ:', getMeta('invoice_number')],
+    [],
+    ['STT', 'Tên mặt hàng', 'ĐVT', 'Số lượng', 'Đơn giá (đ)', 'Thành tiền (đ)'],
     ...rows,
+    [],
     ['', '', '', '', 'TỔNG CỘNG', grandTotal],
   ];
 
   const ws = XLSX.utils.aoa_to_sheet(aoa);
-  ws['!cols'] = [{ wch: 5 }, { wch: 40 }, { wch: 8 }, { wch: 10 }, { wch: 16 }, { wch: 18 }];
-  const wb = XLSX.utils.book_new();
+
+  // Format số có dấu phẩy
+  const fmtNum = '#,##0';
+  const range = XLSX.utils.decode_range(ws['!ref']);
+  for (let R = 8; R <= 8 + rows.length - 1; R++) {
+    // Cột D (SL=3), E (đơn giá=4), F (thành tiền=5)
+    [3, 4, 5].forEach(C => {
+      const cell_ref = XLSX.utils.encode_cell({ r: R, c: C });
+      if (ws[cell_ref]) {
+        ws[cell_ref].t = 'n';
+        ws[cell_ref].z = fmtNum;
+      }
+    });
+  }
+  // Format ô tổng cộng
+  const totalRow = 8 + rows.length + 1;
+  const totalCell = XLSX.utils.encode_cell({ r: totalRow, c: 5 });
+  if (ws[totalCell]) { ws[totalCell].t = 'n'; ws[totalCell].z = fmtNum; }
+
+  ws['!cols'] = [{ wch: 5 }, { wch: 38 }, { wch: 8 }, { wch: 10 }, { wch: 16 }, { wch: 18 }];
+
   XLSX.utils.book_append_sheet(wb, ws, 'Hóa Đơn');
   XLSX.writeFile(wb, `hoadon_${new Date().toISOString().slice(0,10)}.xlsx`);
 }
 
-function fmt(n) { return Number(n||0).toLocaleString('vi-VN'); }
-function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+function fmt(n)    { return Number(n||0).toLocaleString('vi-VN'); }
+function unFmt(s)  { return parseInt(String(s).replace(/[^0-9]/g,'')) || 0; }
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 </script>
 </body>
 </html>
