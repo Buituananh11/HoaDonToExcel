@@ -19,29 +19,22 @@
     align-items: center; padding: 40px 16px;
   }
   header { text-align: center; margin-bottom: 36px; }
-  header h1 {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700;
-    color: var(--accent); letter-spacing: -0.5px;
-  }
+  header h1 { font-family: 'IBM Plex Mono', monospace; font-size: clamp(1.4rem,4vw,2rem); font-weight: 700; color: var(--accent); }
   header h1 span { color: var(--text); }
   header p { margin-top: 8px; color: var(--muted); font-size: 0.8rem; font-family: 'IBM Plex Mono', monospace; }
   .container { width: 100%; max-width: 960px; display: flex; flex-direction: column; gap: 20px; }
-
   .dropzone {
-    border: 2px dashed var(--border); border-radius: 12px;
-    padding: 48px 24px; text-align: center; cursor: pointer;
-    background: var(--surface); transition: border-color 0.2s, background 0.2s; position: relative;
+    border: 2px dashed var(--border); border-radius: 12px; padding: 48px 24px;
+    text-align: center; cursor: pointer; background: var(--surface);
+    transition: border-color 0.2s, background 0.2s; position: relative;
   }
   .dropzone:hover, .dropzone.drag { border-color: var(--accent); background: #1e2230; }
   .dropzone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .dropzone-icon { font-size: 2.5rem; margin-bottom: 12px; }
   .dropzone p { color: var(--muted); font-size: 0.9rem; }
   .dropzone p strong { color: var(--accent); }
-
   #preview-wrap { display: none; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
   #preview-img { width: 100%; max-height: 300px; object-fit: contain; background: #111; display: block; }
-
   .actions { display: flex; gap: 12px; flex-wrap: wrap; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
@@ -53,12 +46,8 @@
   .btn-primary { background: var(--accent); color: #000; }
   .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
   .btn-excel { background: #1d6f42; color: #fff; }
-
   #status { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; min-height: 20px; }
-  #status.loading { color: var(--accent); }
-  #status.error   { color: var(--danger); }
-  #status.done    { color: var(--accent); }
-
+  #status.loading { color: var(--accent); } #status.error { color: var(--danger); } #status.done { color: var(--accent); }
   .table-card { display: none; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
   .table-topbar {
     background: var(--surface); padding: 14px 20px;
@@ -68,63 +57,32 @@
   .table-topbar h2 { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
   .meta-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px; padding: 16px 20px; background: #12151f;
-    border-bottom: 1px solid var(--border);
+    gap: 12px; padding: 16px 20px; background: #12151f; border-bottom: 1px solid var(--border);
   }
   .meta-item label { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 4px; }
   .meta-item input {
     background: #1a1d27; border: 1px solid var(--border); color: var(--text);
-    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem;
-    padding: 6px 10px; border-radius: 6px; width: 100%; outline: none;
-    transition: border-color 0.15s;
+    font-size: 0.85rem; padding: 6px 10px; border-radius: 6px; width: 100%; outline: none; transition: border-color 0.15s;
   }
   .meta-item input:focus { border-color: var(--accent); }
-  .tag {
-    display: inline-block; padding: 2px 8px; border-radius: 4px;
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
-    background: #1a2a1a; color: var(--accent); border: 1px solid #2a4a2a; margin-left: 8px;
-  }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; background: #1a2a1a; color: var(--accent); border: 1px solid #2a4a2a; margin-left: 8px; }
   table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-  thead th {
-    background: #12151f; padding: 11px 12px;
-    text-align: left; font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem; color: var(--muted); letter-spacing: 1px;
-    text-transform: uppercase; border-bottom: 1px solid var(--border); white-space: nowrap;
-  }
+  thead th { background: #12151f; padding: 11px 12px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--border); white-space: nowrap; }
   thead th.r { text-align: right; }
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
   tbody tr:hover { background: #1e2230; }
   tbody td { padding: 9px 12px; vertical-align: middle; }
-  td input {
-    background: transparent; border: none; color: var(--text);
-    font-family: inherit; font-size: inherit; width: 100%;
-    outline: none; padding: 2px 4px; border-radius: 4px; transition: background 0.15s;
-  }
+  td input { background: transparent; border: none; color: var(--text); font-family: inherit; font-size: inherit; width: 100%; outline: none; padding: 2px 4px; border-radius: 4px; transition: background 0.15s; }
   td input:focus { background: #2a2d3a; }
   .total-row { border-top: 2px solid var(--accent) !important; background: #12151f; }
   .total-row td { font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: var(--accent); padding: 13px 12px; }
-  .del-btn {
-    background: none; border: none; color: var(--muted);
-    cursor: pointer; font-size: 1rem; padding: 2px 6px; border-radius: 4px; transition: color 0.15s;
-  }
+  .del-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; padding: 2px 6px; border-radius: 4px; transition: color 0.15s; }
   .del-btn:hover { color: var(--danger); }
-  .add-row-btn {
-    width: 100%; padding: 10px 20px; background: var(--surface); border: none;
-    border-top: 1px solid var(--border); color: var(--muted); cursor: pointer;
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; text-align: left;
-    transition: color 0.2s, background 0.2s;
-  }
+  .add-row-btn { width: 100%; padding: 10px 20px; background: var(--surface); border: none; border-top: 1px solid var(--border); color: var(--muted); cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; text-align: left; transition: color 0.2s, background 0.2s; }
   .add-row-btn:hover { color: var(--accent); background: #1e2230; }
-  .spinner {
-    display: inline-block; width: 13px; height: 13px;
-    border: 2px solid transparent; border-top-color: currentColor;
-    border-radius: 50%; animation: spin 0.7s linear infinite;
-  }
+  .spinner { display: inline-block; width: 13px; height: 13px; border: 2px solid transparent; border-top-color: currentColor; border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  @media (max-width: 600px) {
-    .actions { flex-direction: column; }
-    .btn { justify-content: center; }
-  }
+  @media (max-width: 600px) { .actions { flex-direction: column; } .btn { justify-content: center; } }
 </style>
 </head>
 <body>
@@ -141,12 +99,8 @@
   </div>
   <div id="preview-wrap"><img id="preview-img" src="" alt="preview"></div>
   <div class="actions">
-    <button class="btn btn-primary" id="analyzeBtn" disabled onclick="analyze()">
-      🔍 Đọc hóa đơn bằng AI
-    </button>
-    <button class="btn btn-excel" id="exportBtn" style="display:none" onclick="exportExcel()">
-      📊 Xuất Excel
-    </button>
+    <button class="btn btn-primary" id="analyzeBtn" disabled onclick="analyze()">🔍 Đọc hóa đơn bằng AI</button>
+    <button class="btn btn-excel" id="exportBtn" style="display:none" onclick="exportExcel()">📊 Xuất Excel</button>
   </div>
   <div id="status"></div>
   <div class="table-card" id="tableCard">
@@ -154,9 +108,7 @@
       <h2>Bảng hóa đơn <span class="tag" id="rowCount">0 dòng</span></h2>
       <span style="font-family:monospace;font-size:0.72rem;color:var(--muted)">Click ô để chỉnh sửa</span>
     </div>
-    <!-- Meta fields -->
     <div class="meta-grid" id="metaGrid"></div>
-    <!-- Table -->
     <div style="overflow-x:auto">
       <table>
         <thead>
@@ -177,21 +129,14 @@
     <button class="add-row-btn" onclick="addRow()">＋ Thêm dòng</button>
   </div>
 </div>
-
 <script>
 let imgB64 = null;
-let invoiceData = {};
 
-document.getElementById('fileInput').addEventListener('change', e => {
-  if (e.target.files[0]) loadFile(e.target.files[0]);
-});
+document.getElementById('fileInput').addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
 const dz = document.getElementById('dropzone');
 dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
 dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
-dz.addEventListener('drop', e => {
-  e.preventDefault(); dz.classList.remove('drag');
-  if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
-});
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag'); if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); });
 
 function loadFile(file) {
   const reader = new FileReader();
@@ -206,11 +151,7 @@ function loadFile(file) {
   reader.readAsDataURL(file);
 }
 
-function setStatus(msg, type = '') {
-  const el = document.getElementById('status');
-  el.textContent = msg;
-  el.className = type;
-}
+function setStatus(msg, type = '') { const el = document.getElementById('status'); el.textContent = msg; el.className = type; }
 
 async function analyze() {
   if (!imgB64) return;
@@ -220,47 +161,36 @@ async function analyze() {
   setStatus('// Đang gửi ảnh đến AI...', 'loading');
   try {
     const res = await fetch('/api/analyze', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ imageBase64: imgB64 })
     });
     if (!res.ok) { const e = await res.json(); throw new Error(e.error || 'Server error'); }
-    const parsed = await res.json();
-    invoiceData = parsed;
-    renderMeta(parsed);
-    renderTable(parsed.items || []);
-    setStatus(`// OK · ${(parsed.items||[]).length} sản phẩm`, 'done');
+    const d = await res.json();
+    renderMeta(d);
+    renderTable(d.items || []);
+    setStatus(`// OK · ${(d.items||[]).length} sản phẩm`, 'done');
     document.getElementById('exportBtn').style.display = 'inline-flex';
-  } catch (err) {
-    setStatus('// Lỗi: ' + err.message, 'error');
-  }
+  } catch (err) { setStatus('// Lỗi: ' + err.message, 'error'); }
   btn.disabled = false;
   btn.innerHTML = '🔍 Đọc lại';
 }
 
 function renderMeta(d) {
   const fields = [
-    { key: 'supplier',       label: '🏪 Cửa hàng' },
-    { key: 'address',        label: '📍 Địa chỉ' },
-    { key: 'phone',          label: '📞 ĐT cửa hàng' },
-    { key: 'customer',       label: '👤 Khách hàng' },
-    { key: 'customer_phone', label: '📱 ĐT khách' },
-    { key: 'date',           label: '📅 Ngày' },
+    { key: 'supplier', label: '🏪 Cửa hàng' }, { key: 'address', label: '📍 Địa chỉ' },
+    { key: 'phone', label: '📞 ĐT cửa hàng' }, { key: 'customer', label: '👤 Khách hàng' },
+    { key: 'customer_phone', label: '📱 ĐT khách' }, { key: 'date', label: '📅 Ngày' },
     { key: 'invoice_number', label: '🔢 Số HĐ' },
   ];
-  const grid = document.getElementById('metaGrid');
-  grid.innerHTML = fields.map(f => `
-    <div class="meta-item">
-      <label>${f.label}</label>
-      <input id="meta_${f.key}" value="${escHtml(d[f.key]||'')}">
-    </div>`).join('');
+  document.getElementById('metaGrid').innerHTML = fields.map(f =>
+    `<div class="meta-item"><label>${f.label}</label><input id="meta_${f.key}" value="${escHtml(d[f.key]||'')}"></div>`
+  ).join('');
 }
 
 function renderTable(items) {
   document.getElementById('tbody').innerHTML = '';
   items.forEach((it, i) => appendRow(i + 1, it));
-  updateRowCount();
-  renderTotal();
+  updateRowCount(); renderTotal();
   document.getElementById('tableCard').style.display = 'block';
 }
 
@@ -277,112 +207,171 @@ function appendRow(idx, it = {}) {
   document.getElementById('tbody').appendChild(tr);
 }
 
-function addRow() {
-  const n = document.querySelectorAll('#tbody tr').length;
-  appendRow(n + 1);
-  updateRowCount();
-  renderTotal();
-}
-
-function deleteRow(btn) {
-  btn.closest('tr').remove();
-  renumber();
-  renderTotal();
-  updateRowCount();
-}
-
-function renumber() {
-  document.querySelectorAll('#tbody tr').forEach((tr, i) => { tr.cells[0].textContent = i + 1; });
-}
-
+function addRow() { appendRow(document.querySelectorAll('#tbody tr').length + 1); updateRowCount(); renderTotal(); }
+function deleteRow(btn) { btn.closest('tr').remove(); renumber(); renderTotal(); updateRowCount(); }
+function renumber() { document.querySelectorAll('#tbody tr').forEach((tr, i) => { tr.cells[0].textContent = i + 1; }); }
 function recalc(tr) {
-  const qty   = parseFloat(tr.cells[3].querySelector('input').value) || 0;
+  const qty = parseFloat(tr.cells[3].querySelector('input').value) || 0;
   const price = parseFloat(tr.cells[4].querySelector('input').value) || 0;
   tr.cells[5].textContent = fmt(qty * price);
   renderTotal();
 }
-
 function renderTotal() {
   let sum = 0;
-  document.querySelectorAll('#tbody tr').forEach(tr => {
-    sum += unFmt(tr.cells[5].textContent);
-  });
-  document.getElementById('tfoot').innerHTML = `
-    <tr class="total-row">
-      <td colspan="5" style="text-align:right;font-size:0.8rem;letter-spacing:1px">TỔNG CỘNG</td>
-      <td style="text-align:right;font-size:1rem">${fmt(sum)}</td>
-      <td></td>
-    </tr>`;
+  document.querySelectorAll('#tbody tr').forEach(tr => { sum += unFmt(tr.cells[5].textContent); });
+  document.getElementById('tfoot').innerHTML = `<tr class="total-row"><td colspan="5" style="text-align:right;font-size:0.8rem;letter-spacing:1px">TỔNG CỘNG</td><td style="text-align:right;font-size:1rem">${fmt(sum)}</td><td></td></tr>`;
 }
-
-function updateRowCount() {
-  document.getElementById('rowCount').textContent = document.querySelectorAll('#tbody tr').length + ' dòng';
-}
-
-function getMeta(key) {
-  const el = document.getElementById('meta_' + key);
-  return el ? el.value : '';
-}
+function updateRowCount() { document.getElementById('rowCount').textContent = document.querySelectorAll('#tbody tr').length + ' dòng'; }
+function getMeta(k) { const el = document.getElementById('meta_' + k); return el ? el.value : ''; }
 
 function exportExcel() {
   const wb = XLSX.utils.book_new();
+  const ws = {};
 
-  // Sheet 1: Hóa đơn đầy đủ
-  const rows = [];
+  // Helper: set cell
+  function C(r, c, v, opts = {}) {
+    const ref = XLSX.utils.encode_cell({ r, c });
+    ws[ref] = { v, t: opts.t || (typeof v === 'number' ? 'n' : 's'), ...opts };
+    if (opts.z) ws[ref].z = opts.z;
+  }
+
+  // Border styles
+  const borderThin = { style: 'thin', color: { rgb: '000000' } };
+  const borderMed  = { style: 'medium', color: { rgb: '000000' } };
+  const allBorder  = { top: borderThin, bottom: borderThin, left: borderThin, right: borderThin };
+  const medBorder  = { top: borderMed,  bottom: borderMed,  left: borderMed,  right: borderMed };
+  const headerBorder = { top: borderMed, bottom: borderMed, left: borderThin, right: borderThin };
+
+  const boldCenter = { font: { bold: true }, alignment: { horizontal: 'center', vertical: 'center', wrapText: true } };
+  const bold       = { font: { bold: true } };
+  const right      = { alignment: { horizontal: 'right' } };
+  const center     = { alignment: { horizontal: 'center' } };
+  const numFmt     = '#,##0';
+
+  // ROW 0: Tiêu đề cửa hàng
+  C(0, 0, getMeta('supplier') || 'CỬA HÀNG', { s: { font: { bold: true, sz: 14 }, alignment: { horizontal: 'center', vertical: 'center' } } });
+  C(1, 0, getMeta('address') || '', { s: { alignment: { horizontal: 'center' } } });
+  C(2, 0, 'ĐT: ' + (getMeta('phone') || ''), { s: { alignment: { horizontal: 'center' } } });
+
+  // ROW 3: blank
+  // ROW 4: ĐƠN HÀNG
+  C(4, 0, 'ĐƠN HÀNG', { s: { font: { bold: true, sz: 16 }, alignment: { horizontal: 'center', vertical: 'center' } } });
+
+  // ROW 5: Ngày + Số HĐ
+  C(5, 0, 'Ngày: ' + (getMeta('date') || ''), { s: bold });
+  C(5, 3, 'Số: ' + (getMeta('invoice_number') || ''), { s: bold });
+
+  // ROW 6: Khách hàng
+  C(6, 0, 'Khách hàng: ' + (getMeta('customer') || ''), { s: bold });
+  C(6, 3, 'Điện thoại: ' + (getMeta('customer_phone') || ''), { s: bold });
+
+  // ROW 7: blank
+
+  // ROW 8: Header bảng
+  const headers = ['STT', 'Mặt hàng', 'ĐVT', 'Số lượng', 'Đơn giá', 'Thành tiền'];
+  headers.forEach((h, c) => {
+    C(8, c, h, {
+      s: {
+        font: { bold: true },
+        alignment: { horizontal: 'center', vertical: 'center', wrapText: true },
+        fill: { fgColor: { rgb: 'D9E1F2' } },
+        border: headerBorder
+      }
+    });
+  });
+
+  // ROW 9+: Data rows
+  const dataRows = [];
   document.querySelectorAll('#tbody tr').forEach((tr, i) => {
     const inputs = tr.querySelectorAll('input');
     const qty   = parseFloat(inputs[2].value) || 0;
     const price = parseFloat(inputs[3].value) || 0;
     const total = unFmt(tr.cells[5].textContent);
-    rows.push([i + 1, inputs[0].value, inputs[1].value, qty, price, total]);
+    dataRows.push([i + 1, inputs[0].value, inputs[1].value, qty, price, total]);
   });
 
-  let grandTotal = 0;
-  rows.forEach(r => grandTotal += r[5]);
+  dataRows.forEach((row, i) => {
+    const r = 9 + i;
+    const isEven = i % 2 === 1;
+    const fill = isEven ? { fgColor: { rgb: 'F2F2F2' } } : {};
+    row.forEach((v, c) => {
+      const isNum = c >= 3;
+      C(r, c, v, {
+        t: isNum ? 'n' : 's',
+        z: isNum && c >= 4 ? numFmt : undefined,
+        s: {
+          fill,
+          alignment: c === 0 ? { horizontal: 'center' } : c >= 3 ? { horizontal: 'right' } : { horizontal: 'left' },
+          border: allBorder,
+          font: c === 5 ? { bold: false } : {}
+        }
+      });
+    });
+  });
 
-  const aoa = [
-    [getMeta('supplier') || 'HÓA ĐƠN MUA HÀNG'],
-    ['Địa chỉ:', getMeta('address')],
-    ['Điện thoại:', getMeta('phone')],
-    [],
-    ['Khách hàng:', getMeta('customer'), '', 'ĐT khách:', getMeta('customer_phone')],
-    ['Ngày:', getMeta('date'), '', 'Số HĐ:', getMeta('invoice_number')],
-    [],
-    ['STT', 'Tên mặt hàng', 'ĐVT', 'Số lượng', 'Đơn giá (đ)', 'Thành tiền (đ)'],
-    ...rows,
-    [],
-    ['', '', '', '', 'TỔNG CỘNG', grandTotal],
+  // Tổng cộng row
+  let grandTotal = 0;
+  dataRows.forEach(r => grandTotal += r[5]);
+  const totalR = 9 + dataRows.length;
+
+  C(totalR, 0, '', { s: { border: allBorder } });
+  C(totalR, 1, '', { s: { border: allBorder } });
+  C(totalR, 2, '', { s: { border: allBorder } });
+  C(totalR, 3, '', { s: { border: allBorder } });
+  C(totalR, 4, 'TỔNG CỘNG', {
+    s: { font: { bold: true }, alignment: { horizontal: 'right' }, border: allBorder, fill: { fgColor: { rgb: 'D9E1F2' } } }
+  });
+  C(totalR, 5, grandTotal, {
+    t: 'n', z: numFmt,
+    s: { font: { bold: true, color: { rgb: 'C00000' } }, alignment: { horizontal: 'right' }, border: allBorder, fill: { fgColor: { rgb: 'D9E1F2' } } }
+  });
+
+  // Dư nợ
+  const debtR = totalR + 1;
+  C(debtR, 4, 'Dư nợ:', { s: { font: { bold: true }, alignment: { horizontal: 'right' }, border: allBorder } });
+  C(debtR, 5, 0, { t: 'n', z: numFmt, s: { font: { bold: true }, alignment: { horizontal: 'right' }, border: allBorder } });
+
+  // Chữ ký
+  const sigR = debtR + 2;
+  C(sigR, 0, 'Người lập biểu', { s: { font: { bold: true }, alignment: { horizontal: 'center' } } });
+  C(sigR, 4, 'Đại diện bên bán', { s: { font: { bold: true }, alignment: { horizontal: 'center' } } });
+  C(sigR + 1, 0, '(Ký, họ tên)', { s: { alignment: { horizontal: 'center' }, font: { italic: true } } });
+  C(sigR + 1, 4, '(Ký, họ tên)', { s: { alignment: { horizontal: 'center' }, font: { italic: true } } });
+
+  // Merges
+  ws['!merges'] = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 5 } },  // Tên cửa hàng
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 5 } },  // Địa chỉ
+    { s: { r: 2, c: 0 }, e: { r: 2, c: 5 } },  // ĐT
+    { s: { r: 4, c: 0 }, e: { r: 4, c: 5 } },  // Tiêu đề ĐƠN HÀNG
+    { s: { r: 6, c: 0 }, e: { r: 6, c: 2 } },  // Khách hàng
+    { s: { r: 6, c: 3 }, e: { r: 6, c: 5 } },  // ĐT khách
+    { s: { r: 5, c: 0 }, e: { r: 5, c: 2 } },  // Ngày
+    { s: { r: 5, c: 3 }, e: { r: 5, c: 5 } },  // Số HĐ
+    { s: { r: sigR, c: 0 }, e: { r: sigR, c: 2 } },
+    { s: { r: sigR, c: 3 }, e: { r: sigR, c: 5 } },
+    { s: { r: sigR+1, c: 0 }, e: { r: sigR+1, c: 2 } },
+    { s: { r: sigR+1, c: 3 }, e: { r: sigR+1, c: 5 } },
   ];
 
-  const ws = XLSX.utils.aoa_to_sheet(aoa);
+  // Col widths
+  ws['!cols'] = [{ wch: 6 }, { wch: 36 }, { wch: 8 }, { wch: 10 }, { wch: 16 }, { wch: 16 }];
 
-  // Format số có dấu phẩy
-  const fmtNum = '#,##0';
-  const range = XLSX.utils.decode_range(ws['!ref']);
-  for (let R = 8; R <= 8 + rows.length - 1; R++) {
-    // Cột D (SL=3), E (đơn giá=4), F (thành tiền=5)
-    [3, 4, 5].forEach(C => {
-      const cell_ref = XLSX.utils.encode_cell({ r: R, c: C });
-      if (ws[cell_ref]) {
-        ws[cell_ref].t = 'n';
-        ws[cell_ref].z = fmtNum;
-      }
-    });
-  }
-  // Format ô tổng cộng
-  const totalRow = 8 + rows.length + 1;
-  const totalCell = XLSX.utils.encode_cell({ r: totalRow, c: 5 });
-  if (ws[totalCell]) { ws[totalCell].t = 'n'; ws[totalCell].z = fmtNum; }
+  // Row heights
+  ws['!rows'] = [];
+  ws['!rows'][4] = { hpt: 28 };
+  ws['!rows'][8] = { hpt: 22 };
 
-  ws['!cols'] = [{ wch: 5 }, { wch: 38 }, { wch: 8 }, { wch: 10 }, { wch: 16 }, { wch: 18 }];
+  // Ref range
+  ws['!ref'] = XLSX.utils.encode_range({ r: 0, c: 0 }, { r: sigR + 1, c: 5 });
 
   XLSX.utils.book_append_sheet(wb, ws, 'Hóa Đơn');
   XLSX.writeFile(wb, `hoadon_${new Date().toISOString().slice(0,10)}.xlsx`);
 }
 
-function fmt(n)    { return Number(n||0).toLocaleString('vi-VN'); }
-function unFmt(s)  { return parseInt(String(s).replace(/[^0-9]/g,'')) || 0; }
-function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+function fmt(n)     { return Number(n||0).toLocaleString('vi-VN'); }
+function unFmt(s)   { return parseInt(String(s).replace(/[^0-9]/g,'')) || 0; }
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 </script>
 </body>
 </html>
